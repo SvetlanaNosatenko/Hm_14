@@ -8,7 +8,7 @@ app = Flask(__name__)
 def name_movie(title):
     if title:
         sql = f"SELECT title, country, release_year, listed_in, description FROM netflix" \
-              f"WHERE lower(title) like '%{name_movie.lower()}%' " \
+              f"WHERE lower(title) like '%{title.lower()}%' " \
               f"ORDER BY release_year DESC limit 1"
         results = run_sql(sql)
         return jsonify([{"title": title, "country": country, "release_year": release_year,
