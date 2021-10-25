@@ -6,6 +6,7 @@ app = Flask(__name__)
 
 @app.route('/movie/<title>')
 def name_movie(title):
+    """Поиск по названию. Если таких фильмов несколько, выводить самый свежий."""
     if title:
         sql = f"SELECT title, country, release_year, listed_in, description FROM netflix" \
               f"WHERE lower(title) like '%{title.lower()}%' " \
@@ -94,6 +95,10 @@ def rating_adult():
 
 @app.route('/actors/<name1>/<name2>')
 def cast_name(name1, name2):
+    """Функцию получает в качестве аргумента имена двух актеров,
+    сохраняет всех актеров из колонки cast и возвращает список тех, кто играет с ними в паре больше 2 раз.
+    В качестве теста можно передать: Rose McIver и Ben Lamb, Jack Black и Dustin Hoffman."""
+
     if name1 and name2:
         sql = f"SELECT cast FROM netflix " \
               f"WHERE lower(cast like) '%{name1.lower()}% AND lower(cast) like '%{name2.lower()}%'"
